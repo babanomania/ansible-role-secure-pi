@@ -1,42 +1,73 @@
-Role Name
+ansible-role-secure-pi
 =========
 
-A brief description of the role goes here.
+This is an ansible-playbook to setup an secure raspberry-pi. Below are the features.
+
+
+- Change the password of the pi user
+- Ensure Root cannot login via ssh
+- Disable password based login
+- Install & enable ufw and fail2ban
+- Set default and ssh firewall rules
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+
+1. **Prepare a Complex Password**
+
+      This complex password will be updated as the password for the default user, but you need to encrypt the password, [click here](
+  https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module) to see how to create encrypted passwords for the user module
+
+2. **List ports to open**
+
+    Identify which ports you want to open from your raspberry pi. Usually port 22 is required so that you can ssh into it and check. If you're planng to setup a web server, generally port 80 or 443 is needed
+'
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-Dependencies
-------------
+| Variable Name | Description | Default Value |
+|--|--|-- |
+| pi_custom_password | encoded password for ssh user| |
+| ports_allow | list of ports to open |22, 80 | 
+|ensure_autoupdate| flag to enable disable os autoupdate| true | 
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+---
+- hosts: raspberrypi
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+  vars:
+    # password used here is 'raspberry'
+    - pi_custom_password: $6$c04cOXDbcDZ$fobZpDfUp1gOfICS9B5MNmzr9BnNL8gzjPBZnfoYLG/VCYSXFChljrMgczA9WI.TdNXIHtSCVKEJ36suDK1s4/
+    - ports_allow:
+      - 22
+      - 80
+
+  roles:
+    - role: '../../.'
+```
+
+Tests
+-----
+
+Below are the steps to test this role
+
+1. Copy the file __test/example.inventory.ini__ to __tests/inventory.ini__
+2. Change the ip and username in the __tests/inventory.ini__ file to your raspberry pi's ip and default ssh user.
+3. Ensure passwordless ssh is setup between your host and the raspberry pi
+4. Run the below command
+
+```bash
+ansible-playbook -i tests/inventory tests/test.yml
+```
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
-
-
---
-test -> ansible-playbook -i tests/inventory tests/test.yml
+MIT
