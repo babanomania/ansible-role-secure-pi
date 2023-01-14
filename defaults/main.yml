@@ -13,12 +13,14 @@ ensure_autoupdate: true
 
 # enables discord alerts for auto updtates
 discord_alerts: false
-
 discord_webhook_url: https://discordapp.com/api/webhooks/000/XXXYYY
+discord_botname: PiMaintenanceBot
 
+#log2ram configuration
 apt_keyring_file: azlux.fr.log2ram.gpg
 apt_sources_file: log2ram.list
 
+#log2ram configuration continues
 log2ram_size: 40M
 log2ram_path_disk: /var/log
 log2ram_use_z2lr: true

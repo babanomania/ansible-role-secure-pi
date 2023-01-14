@@ -29,14 +29,21 @@ Requirements
 Role Variables
 --------------
 
+Below are the general parameters
 
 | Variable Name | Description | Default Value |
 |--|--|-- |
 | pi_custom_password | encoded password for ssh user| |
 | ports_allow | list of ports to open |22, 80 | 
+
+Below are some additional parameters related to Autoupdates and alerts
+
+| Variable Name | Description | Default Value |
+|--|--|-- |
 |ensure_autoupdate| flag to enable disable os autoupdate| true |
 |discord_alerts| flag to enable discord alerts| false |
 |discord_webhook_url| discord webhook url | | 
+|discord_botname|name of the discord bot|PiMaintenanceBot|
 
 
 Example Playbook

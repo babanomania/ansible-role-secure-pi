@@ -5,4 +5,4 @@ cd {{ base_path }}/
 export TXT_HOSTNAME=`hostname`
 export TXT_MESSAGE="[$TXT_HOSTNAME] $1"
 
-curl -H "Content-Type: application/json" -d "{ \"username\": \"PiBackup Bot\", \"content\": \"$TXT_MESSAGE\" }" {{ discord_webhook_url }}
+curl -H "Content-Type: application/json" -d "{ \"username\": \"{{ discord_botname }}\", \"content\": \"$TXT_MESSAGE\" }" {{ discord_webhook_url }}

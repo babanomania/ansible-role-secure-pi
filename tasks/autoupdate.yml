@@ -3,19 +3,9 @@
   become: true
   become_user: "{{ ansible_user }}"
   template:
-    src: do_autoupdate_nonotify.sh.j2
-    dest: "{{ base_path }}/do_autoupdate.sh"
-    mode: u=rw,g=rx,o=rx
-  when: not discord_alerts
-
-- name: Ensure autoupdate script is present
-  become: true
-  become_user: "{{ ansible_user }}"
-  template:
     src: do_autoupdate.sh.j2
     dest: "{{ base_path }}/do_autoupdate.sh"
     mode: u=rw,g=rx,o=rx
-  when: discord_alerts
 
 - name: Ensure alerts script is present
   become: true
@@ -25,6 +15,15 @@
     dest: "{{ base_path }}/do_alert.sh"
     mode: u=rw,g=rx,o=rx
   when: discord_alerts
+
+- name: Ensure empty script is present for alerts
+  become: true
+  become_user: "{{ ansible_user }}"
+  copy:
+    content: ""
+    dest: "{{ base_path }}/do_alert.sh"
+    mode: u=rw,g=rx,o=rx
+  when: not discord_alerts
 
 - name: Ensure autoupdate job runs every sunday at 01:00
   become: true
