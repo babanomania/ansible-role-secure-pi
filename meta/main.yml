@@ -1,5 +1,6 @@
 galaxy_info:
   author: secure-pi
+  role_name: secure_pi
   description: Configures an Secure Raspberry Pi
   license: license (MIT)
   min_ansible_version: "2.12"

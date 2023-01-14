@@ -50,7 +50,7 @@ Example Playbook
       - 80
 
   roles:
-    - role: '../../.'
+    - role: 'babanomania.secure_pi'
 ```
 
 Tests
