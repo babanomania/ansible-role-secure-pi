@@ -1,0 +1,24 @@
+---
+- name: Server Hardening
+  become: yes
+
+  pre_tasks:
+    - name: pre tasks
+      import_tasks: pre.yml
+
+  tasks:
+    - name: Setup log2ram
+      import_tasks: log2ram.yml
+
+    - name: Setup User Security
+      import_tasks: users.yml
+
+    - name: Setup SSH Security
+      import_tasks: ssh.yml
+
+    - name: Setup Firewall
+      import_tasks: firewall.yml
+
+    - name: Setup Auto-Updates
+      import_tasks: autoupdate.yml
+      when: ensure_autoupdate

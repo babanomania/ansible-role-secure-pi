@@ -1,0 +1,20 @@
+---
+# The custom password for the pi user here is raspberry
+pi_custom_password: $6$c04cOXDbcDZ$fobZpDfUp1gOfICS9B5MNmzr9BnNL8gzjPBZnfoYLG/VCYSXFChljrMgczA9WI.TdNXIHtSCVKEJ36suDK1s4/
+
+# base location for all application setup
+base_path: /app
+
+ports_allow:
+  - 22
+
+ensure_autoupdate: true
+
+apt_keyring_file: azlux.fr.log2ram.gpg
+apt_sources_file: log2ram.list
+
+log2ram_size: 40M
+log2ram_path_disk: /var/log
+log2ram_use_z2lr: true
+log2ram_comp_alg: lz4
+log2ram_log_disk_size: 100M

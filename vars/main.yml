@@ -1,0 +1,15 @@
+---
+# How to create encrypted passwords for the user module
+# https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module
+# The custom password for the pi user is in this example raspberry
+pi_custom_password: $6$c04cOXDbcDZ$fobZpDfUp1gOfICS9B5MNmzr9BnNL8gzjPBZnfoYLG/VCYSXFChljrMgczA9WI.TdNXIHtSCVKEJ36suDK1s4/
+
+# base location for all application setup
+base_path: /app
+
+# configures autoupdate
+ensure_autoupdate: true
+
+ports_allow:
+  - 22
+  - 80

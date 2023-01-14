@@ -1,0 +1,5 @@
+---
+- hosts: testpi
+  remote_user: dietpi
+  roles:
+    - ansible-role-secure-pi
