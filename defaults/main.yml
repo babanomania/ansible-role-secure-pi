@@ -8,7 +8,13 @@ base_path: /app
 ports_allow:
   - 22
 
+# enables os updates automatically
 ensure_autoupdate: true
+
+# enables discord alerts for auto updtates
+discord_alerts: false
+
+discord_webhook_url: https://discordapp.com/api/webhooks/000/XXXYYY
 
 apt_keyring_file: azlux.fr.log2ram.gpg
 apt_sources_file: log2ram.list

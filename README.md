@@ -9,6 +9,8 @@ This is an ansible-playbook to setup an secure raspberry-pi. Below are the featu
 - Disable password based login
 - Install & enable ufw and fail2ban
 - Set default and ssh firewall rules
+- Setup log2ram for perfomance
+- Configures OS Autoupdates and discord alerts
 
 Requirements
 ------------
@@ -32,7 +34,9 @@ Role Variables
 |--|--|-- |
 | pi_custom_password | encoded password for ssh user| |
 | ports_allow | list of ports to open |22, 80 | 
-|ensure_autoupdate| flag to enable disable os autoupdate| true | 
+|ensure_autoupdate| flag to enable disable os autoupdate| true |
+|discord_alerts| flag to enable discord alerts| false |
+|discord_webhook_url| discord webhook url | | 
 
 
 Example Playbook

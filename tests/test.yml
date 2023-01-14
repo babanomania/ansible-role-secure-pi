@@ -12,5 +12,8 @@
       - 22
       - 80
 
+    - ensure_autoupdate: true
+    - discord_alerts: false
+    
   roles:
     - role: '../../.'
