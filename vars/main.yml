@@ -4,9 +4,6 @@
 # The custom password for the pi user is in this example raspberry
 pi_custom_password: $6$c04cOXDbcDZ$fobZpDfUp1gOfICS9B5MNmzr9BnNL8gzjPBZnfoYLG/VCYSXFChljrMgczA9WI.TdNXIHtSCVKEJ36suDK1s4/
 
-# base location for all application setup
-base_path: /app
-
 # configures autoupdate
 ensure_autoupdate: true
 
