@@ -1,7 +1,6 @@
 ---
 - hosts: testpi
-  become: yes
-  
+
   vars:
     # How to create encrypted passwords for the user module
     # https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module

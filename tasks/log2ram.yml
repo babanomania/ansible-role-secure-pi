@@ -1,5 +1,6 @@
 ---
 - name: "Add /etc/apt/sources.list.d/{{ apt_sources_file }}"
+  become: true
   copy:
     content: "deb http://packages.azlux.fr/debian/ {{ ansible_facts['distribution_release'] }} main\n"
     dest: /etc/apt/sources.list.d/{{ apt_sources_file }}
@@ -8,6 +9,7 @@
   register: source_list
 
 - name: Import apt key
+  become: true
   apt_key:
     url: https://azlux.fr/repo.gpg.key
     id: 98B824A5FA7D3A10FDB225B7CA548A0A0312D8E6
@@ -15,16 +17,19 @@
   register: dl_key
 
 - name: Remove tilde backup file {{ apt_keyring_file }}~
+  become: true
   file:
     path: /etc/apt/trusted.gpg.d/{{ apt_keyring_file }}~
     state: absent
 
 - name: update apt cache
+  become: true
   apt:
     update_cache: true
   when: dl_key is changed or source_list is changed
 
 - name: Install log2ram
+  become: true
   apt:
     pkg:
       - log2ram
@@ -32,15 +37,22 @@
   notify: Restart log2ram
 
 - name: Set config options
+  become: true
   lineinfile:
     path: /etc/log2ram.conf
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     backrefs: true
   loop:
-    - {regexp: '^SIZE=(.*)$', line: 'SIZE={{ log2ram_size }}'}
-    - {regexp: '^PATH_DISK=(.*)$', line: 'PATH_DISK="{{ log2ram_path_disk }}"'}
-    - {regexp: '^ZL2R=(.*)$', line: 'ZL2R={{ log2ram_use_z2lr|lower }}'}
-    - {regexp: '^COMP_ALG=(.*)$', line: 'COMP_ALG={{ log2ram_comp_alg }}'}
-    - {regexp: '^LOG_DISK_SIZE=(.*)$', line: 'LOG_DISK_SIZE={{ log2ram_log_disk_size }}'}
+    - { regexp: "^SIZE=(.*)$", line: "SIZE={{ log2ram_size }}" }
+    - {
+        regexp: "^PATH_DISK=(.*)$",
+        line: 'PATH_DISK="{{ log2ram_path_disk }}"',
+      }
+    - { regexp: "^ZL2R=(.*)$", line: "ZL2R={{ log2ram_use_z2lr|lower }}" }
+    - { regexp: "^COMP_ALG=(.*)$", line: "COMP_ALG={{ log2ram_comp_alg }}" }
+    - {
+        regexp: "^LOG_DISK_SIZE=(.*)$",
+        line: "LOG_DISK_SIZE={{ log2ram_log_disk_size }}",
+      }
   notify: Restart log2ram

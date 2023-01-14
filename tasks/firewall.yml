@@ -1,5 +1,6 @@
 ---
 - name: Install required packages
+  become: true
   apt:
     name: "{{ item }}"
   with_items:
@@ -7,20 +8,24 @@
     - fail2ban
 
 - name: Start and enable UFW
+  become: true
   ufw:
     state: enabled
 
 - name: Establish default incoming firewall rule
+  become: true
   ufw:
     policy: deny
     direction: incoming
 
 - name: Establish default outgoing firewall rule
+  become: true
   ufw:
     policy: allow
     direction: outgoing
 
 - name: Allow ports in firewall
+  become: true
   ufw:
     rule: allow
     port: "{{ item }}"
@@ -28,6 +33,7 @@
   loop: "{{ ports_allow }}"
 
 - name: Enable rate limiting
+  become: true
   ufw:
     rule: limit
     port: "{{ item }}"
@@ -35,6 +41,7 @@
   loop: "{{ ports_allow }}"
 
 - name: Configure fail2ban
+  become: true
   copy:
     src: jail.local
     dest: "/etc/fail2ban/"

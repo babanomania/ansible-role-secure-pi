@@ -1,5 +1,6 @@
 ---
-- name: Change the password of the user pi
+- name: Change the password of the logged in user
+  become: true
   user:
     name: "{{ ansible_user }}"
     password: "{{ pi_custom_password }}"

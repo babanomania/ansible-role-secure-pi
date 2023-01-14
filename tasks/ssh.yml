@@ -1,5 +1,6 @@
 ---
 - name: Check if root user is denied SSH
+  become: true
   lineinfile:
     path: /etc/ssh/sshd_config
     line: "DenyUsers pi root"
@@ -9,6 +10,7 @@
   register: deny_root
 
 - name: Ensure root user is denied SSH
+  become: true
   lineinfile:
     path: /etc/ssh/sshd_config
     insertafter: "EOF"
@@ -16,20 +18,22 @@
   when: not deny_root.found
 
 - name: Disable ChallengeResponseAuthentication
+  become: true
   lineinfile:
     path: "/etc/ssh/sshd_config"
     regexp: "^ChallengeResponseAuthentication"
     line: "ChallengeResponseAuthentication no"
 
 - name: Disable PasswordAuthentication
+  become: true
   lineinfile:
     path: "/etc/ssh/sshd_config"
     regexp: "^PasswordAuthentication"
     line: "PasswordAuthentication no"
 
 - name: Disable UsePAM
+  become: true
   lineinfile:
     path: "/etc/ssh/sshd_config"
     regexp: "^UsePAM"
     line: "UsePAM no"
-

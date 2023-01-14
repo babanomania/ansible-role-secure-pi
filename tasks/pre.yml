@@ -1,18 +1,21 @@
 ---
 - name: Ensure apt cache is up to date.
+  become: true
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600
 
 - name: Checking if base_path exists
+  become: true
   stat:
     path: "{{ base_path }}/"
-  register: base_path
+  register: base_path_check
 
 - name: Create base_path directory
   become: true
-  become_user: "{{ ansible_user }}"
   file:
     path: "{{ base_path }}"
     state: directory
-  when: base_path.stat.exists == False
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  when: base_path_check.stat.exists == False
